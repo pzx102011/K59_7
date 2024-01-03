@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create(
-            'subject',
+            'subjects',
             function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
@@ -19,14 +19,14 @@ return new class extends Migration {
         );
 
         Schema::create(
-            'subject_grade',
+            'subjects_grades',
             function (Blueprint $table) {
                 $table->smallInteger('grade');
-                $table->bigInteger('subject_id', unsigned: true);
+                $table->bigInteger('subjects_id', unsigned: true);
                 $table->bigInteger('pupil_id', unsigned: true);
                 $table->timestamps();
 
-                $table->foreign('subject_id')->references('id')->on('subject');
+                $table->foreign('subjects_id')->references('id')->on('subjects');
                 $table->foreign('pupil_id')->references('id')->on('users');
             }
         );
@@ -34,6 +34,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::dropIfExists('subject');
+        Schema::dropIfExists('subjects');
     }
 };

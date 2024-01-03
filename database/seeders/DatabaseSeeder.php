@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             [
                 UserRoleSeeder::class,
                 UserSeeder::class,
-                SubjectGradeSeeder::class,
+                SubjectsAndGradesSeeder::class,
             ]
         );
     }

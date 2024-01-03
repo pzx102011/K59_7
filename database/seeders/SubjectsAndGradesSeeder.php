@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 use function rand;
 
-class SubjectGradeSeeder extends Seeder
+class SubjectsAndGradesSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('subject')
+        DB::table('subjects')
             ->insert(
                 [
                     ['name' => 'Matematyka', 'tutor_id' => rand(7, 9)],
@@ -31,12 +31,12 @@ class SubjectGradeSeeder extends Seeder
         for ($i = 0; $i < 500; $i++) {
             $grades[] = [
                 'grade' => rand(1, 6),
-                'subject_id' => rand(1, 5),
+                'subjects_id' => rand(1, 5),
                 'pupil_id' => rand(4, 6),
                 'created_at' => $currentDate,
             ];
         }
 
-        DB::table('subject_grade')->insert($grades);
+        DB::table('subjects_grades')->insert($grades);
     }
 }
