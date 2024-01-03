@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', fn () => view('welcome'));
-Route::get('/login', [AuthenticationController::class, 'showLoginForm']);
+Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
 Route::post('/authenticate', [AuthenticationController::class, 'authenticate']);
-
-// Route dla logowania
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
