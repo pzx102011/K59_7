@@ -16,3 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/docker/Dockerfile-mysql
+/docker/Dockerfile-php
+/docker/laravel.conf
+/docker-compose.yaml
