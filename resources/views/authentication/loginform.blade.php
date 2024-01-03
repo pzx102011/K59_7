@@ -11,7 +11,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form method="post" action="{{ route('login') }}">
+                <form method="post" action="{{ route('authenticate') }}">
                     @csrf
 
                     <div class="input-group mb-3">

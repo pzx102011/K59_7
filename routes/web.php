@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', fn () => view('welcome'));
-Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
-Route::post('/authenticate', [AuthenticationController::class, 'authenticate']);
+Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login-form');
+Route::post('/authenticate', [AuthenticationController::class, 'authenticate'])->name('authenticate');
