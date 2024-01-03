@@ -51,6 +51,9 @@
                         <!-- /.col -->
                     </div>
                 </form>
+                @if($errors->any())
+                    {{ implode('', $errors->all(':message')) }}
+                @endif
 
                 {{--                <p class="mb-1">--}}
                 {{--                    <a href="{{ route('password.request') }}">I forgot my password</a>--}}
