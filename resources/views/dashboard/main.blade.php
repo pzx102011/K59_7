@@ -1,3 +1,4 @@
+@php use App\Enums\UserRoleEnum; @endphp
 @extends('layouts.app')
 
 @section('content')
@@ -5,11 +6,14 @@
         <div class="login-logo">
             <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
         </div>
-        <!-- /.login-logo -->
 
         <div class="card">
             <h1>Jestę daszbordę</h1>
-            <!-- /.login-card-body -->
+            <ul>
+                @if($user->role === UserRoleEnum::Administrator)
+                    <li><a href="{{route('')}}"></a></li>
+                @endif
+            </ul>
         </div>
     </div>
     <!-- /.login-box -->
