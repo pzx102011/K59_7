@@ -14,7 +14,7 @@
                     <div class="card-body login-card-body">
                         <p class="login-box-msg">Zaloguj się</p>
 
-                        <form method="post" action="{{ route('login') }}">
+                        <form method="post" action="{{ route('authenticate') }}">
                             @csrf
 
                             <div class="input-group mb-3">
@@ -55,11 +55,13 @@
                                 <!-- /.col -->
                             </div>
                         </form>
+                        @if($errors->any())
+                            {{ implode('', $errors->all(':message')) }}
+                        @endif
                     </div>
                     <!-- /.login-card-body -->
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
