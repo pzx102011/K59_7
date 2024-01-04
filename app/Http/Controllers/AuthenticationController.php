@@ -28,13 +28,12 @@ class AuthenticationController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/');
+            return redirect()->intended('dashboard');
         }
 
-        return back()->withErrors(
-            [
-                'email' => 'The provided credentials do not match our records.',
-            ]
-        )->onlyInput('email');
+        return back()
+            ->withErrors(['email' => 'The provided credentials do not match our records.'])
+            ->onlyInput('email')
+        ;
     }
 }
