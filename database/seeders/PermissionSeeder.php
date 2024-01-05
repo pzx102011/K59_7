@@ -10,6 +10,7 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
+            'administrator',
             'add-all-grades',
             'modify-all-grades',
             'view-all-grades',

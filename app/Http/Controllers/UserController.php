@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
+use function sprintf;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(sprintf('role:%s', UserRoleEnum::Administrator->value));
     }
 
     public function index(): View
