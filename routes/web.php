@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', fn () => view('welcome'));
-Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login-form');
-Route::post('/authenticate', [AuthenticationController::class, 'authenticate'])->name('authenticate');
+Route::get('/login', [AuthenticationController::class, 'index'])->name('login.index');
+Route::post('/authenticate', [AuthenticationController::class, 'authenticate'])->name('login.authenticate');
 
-Route::group(
-    ['middleware' => ['auth']],
-    function () {
-        Route::get('/dashboard', [DashboardController::class, 'main'])->name('dashboard');
-    }
+Route::resources(
+    [
+        'users' => UserController::class,
+        'dashboard' => DashboardController::class,
+    ]
 );
