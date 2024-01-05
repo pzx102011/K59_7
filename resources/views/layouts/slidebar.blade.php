@@ -59,7 +59,6 @@
                         </li>
                     @endif
 
-
                     <li class="nav-header"></li>
                     <li class="nav-item menu-open">
                         <ul class="nav nav-treeview">
