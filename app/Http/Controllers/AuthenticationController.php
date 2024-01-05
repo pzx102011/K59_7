@@ -11,7 +11,7 @@ use function redirect;
 
 class AuthenticationController extends Controller
 {
-    public function showLoginForm(): View
+    public function index(): View
     {
         return \view('authentication.loginform');
     }

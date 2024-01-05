@@ -7,58 +7,61 @@
             <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
         </div>
 
-        <div class="card">
-            <h1>Jestę indeksę userę</h1>
-            <table class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">S#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col" style="width: 250px;">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                @forelse ($roles as $role)
-                    <tr>
-                        <th scope="row">{{ $loop->iteration }}</th>
-                        <td>{{ $role->name }}</td>
-                        <td>
-                            <form action="{{ route('roles.destroy', $role->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
+        <div class="row justify-content-center">
+            <div class="col-md-8">
 
-                                <a href="{{ route('roles.show', $role->id) }}" class="btn btn-warning btn-sm"><i
-                                        class="bi bi-eye"></i> Show</a>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="float-start">
+                            Edit Role
+                        </div>
+                        <div class="float-end">
+                            <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('users.update', $user->id) }}" method="post">
+                            @csrf
+                            @method("PUT")
 
-                                @if ($role->name!='Super Admin')
-                                    @can('edit-role')
-                                        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-primary btn-sm"><i
-                                                class="bi bi-pencil-square"></i> Edit</a>
-                                    @endcan
+                            <div class="mb-3 row">
+                                <label for="name" class="col-md-4 col-form-label text-md-end text-start">Name</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                           id="name" name="name" value="{{ $role->name }}">
+                                    @if ($errors->has('name'))
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
+                                </div>
+                            </div>
 
-                                    @can('delete-role')
-                                        @if ($role->name!=Auth::user()->hasRole($role->name))
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Do you want to delete this role?');"><i
-                                                    class="bi bi-trash"></i> Delete
-                                            </button>
-                                        @endif
-                                    @endcan
-                                @endif
+                            <div class="mb-3 row">
+                                <label for="permissions" class="col-md-4 col-form-label text-md-end text-start">Permissions</label>
+                                <div class="col-md-6">
+                                    <select class="form-select @error('permissions') is-invalid @enderror" multiple
+                                            aria-label="Permissions" id="permissions" name="permissions[]"
+                                            style="height: 210px;">
+                                        @forelse ($permissions as $permission)
+                                            <option
+                                                value="{{ $permission->id }}" {{ in_array($permission->id, $rolePermissions ?? []) ? 'selected' : '' }}>
+                                                {{ $permission->name }}
+                                            </option>
+                                        @empty
 
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <td colspan="3">
-                        <span class="text-danger">
-                            <strong>No Role Found!</strong>
-                        </span>
-                    </td>
-                @endforelse
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!-- /.login-box -->
+                                        @endforelse
+                                    </select>
+                                    @if ($errors->has('permissions'))
+                                        <span class="text-danger">{{ $errors->first('permissions') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <input type="submit" class="col-md-3 offset-md-5 btn btn-primary" value="Update Role">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- /.login-box -->
 @endsection
