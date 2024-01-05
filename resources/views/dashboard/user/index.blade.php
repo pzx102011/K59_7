@@ -8,6 +8,17 @@
         </div>
 
         <div class="card">
+            <div class="card-header">
+                <div class="float-start">
+                    <h2>Zarządzaj użytkownikami</h2>
+                </div>
+                <div class="float-end">
+                    <a href="{{ route('dashboard.index') }}" class="btn btn-primary btn-sm">&#8656; Wróć do panelu</a>
+                </div>
+                <div class="float-end">
+                    <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">Utwórz nowego</a>
+                </div>
+            </div>
             <h1>Jestę indeksę userę</h1>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -29,15 +40,12 @@
                                 @csrf
                                 @method('DELETE')
 
-                                <a href="{{ route('users.index', $user->id) }}" class="btn btn-warning btn-sm"><i
-                                        class="bi bi-eye"></i> Show</a>
-
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
-                                    <i class="bi bi-pencil-square"></i> Edit</a>
+                                    <i class="bi bi-pencil-square"></i> Edytuj</a>
 
                                 <button type="submit" class="btn btn-danger btn-sm"
                                         onclick="return confirm('Do you want to delete this user?');"><i
-                                        class="bi bi-trash"></i> Delete
+                                        class="bi bi-trash"></i> Usuń
                                 </button>
 
                             </form>
