@@ -16,10 +16,12 @@ class UserController extends Controller
 
     public function index(): View
     {
+        $user = Auth::user();
+
         return \view(
             'dashboard.user.index',
             [
-                'users' => User::orderBy('role_id', 'desc')->paginate(10),
+                'users' => User::orderBy('id', 'desc')->paginate(10),
                 'loggedUser' => Auth::user(),
             ]
         );
@@ -43,8 +45,19 @@ class UserController extends Controller
     {
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
+        if ($user->hasRole('Administrator')) {
+            abort(403, 'Administrator cannot be deleted');
+        }
+
+        $user->syncRoles([]);
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->withSuccess('User is deleted successfully.')
+        ;
     }
 
 }

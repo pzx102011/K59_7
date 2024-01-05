@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum UserRoleEnum: int
+enum UserRoleEnum: string
 {
-    case Administrator = 1;
-    case Headmaster = 2;
-    case Tutor = 3;
-    case Parent = 4;
-    case Pupil = 5;
+    case Administrator = 'Administrator';
+    case Headmaster = 'Dyrektor';
+    case Tutor = 'Nauczyciel';
+    case Parent = 'Rodzic';
+    case Pupil = 'Uczeń';
 }
