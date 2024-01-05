@@ -8,12 +8,17 @@
         </div>
 
         <div class="card">
-            <h1>Jestę daszbordę</h1>
-            <ul>
-                @if($user->role === UserRoleEnum::Administrator)
-                    <li><a href="{{route('')}}"></a></li>
-                @endif
-            </ul>
+            <div class="card-header">
+                <h1>Jestę daszbordę</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-3 row">
+                    @if($user->hasRole(UserRoleEnum::Administrator))
+                        <a href="{{route('users.index')}}" class="btn btn-primary btn-sm">Zarządzaj
+                            użytkownikami</a>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     <!-- /.login-box -->
