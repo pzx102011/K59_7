@@ -8,7 +8,12 @@ use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function main(Request $request): View
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function index(Request $request): View
     {
         $user = Auth::user();
 

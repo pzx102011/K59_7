@@ -2,24 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+
+use function sprintf;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(sprintf('role:%s', UserRoleEnum::Administrator->value));
     }
 
     public function index(): View
     {
+        $user = Auth::user();
+
         return \view(
             'dashboard.user.index',
             [
-                'users' => User::orderBy('role_id', 'desc')->paginate(10),
+                'users' => User::orderBy('id', 'desc')->paginate(10),
                 'loggedUser' => Auth::user(),
             ]
         );
@@ -34,7 +41,7 @@ class UserController extends Controller
     {
     }
 
-    public function edit(): View
+    public function edit(Request $request): View
     {
         return \view('dashboard.user.edit');
     }
@@ -43,8 +50,19 @@ class UserController extends Controller
     {
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(User $user): RedirectResponse
     {
+        if ($user->hasRole('Administrator')) {
+            abort(403, 'Administrator cannot be deleted');
+        }
+
+        $user->syncRoles([]);
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->withSuccess('User is deleted successfully.')
+        ;
     }
 
 }
