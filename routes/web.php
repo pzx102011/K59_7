@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', fn () => view('welcome'));
 Route::get('/login', [AuthenticationController::class, 'index'])->name('login.index');
+Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 Route::post('/authenticate', [AuthenticationController::class, 'authenticate'])->name('login.authenticate');
 
 Route::resources(
