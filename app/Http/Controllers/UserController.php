@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRoleEnum;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use DateTime;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
+use function redirect;
 use function sprintf;
 
 class UserController extends Controller
@@ -42,8 +47,22 @@ class UserController extends Controller
         );
     }
 
-    public function store(): RedirectResponse
+    public function store(StoreUserRequest $storeUserRequest): RedirectResponse
     {
+        $role = Role::findById($storeUserRequest->get('role'));
+
+        $user = new User();
+
+        $user->name = $storeUserRequest->get('name');
+        $user->email = $storeUserRequest->get('email');
+        $user->password = Hash::make($storeUserRequest->get('password'));
+        $user->role_id = $role->id;
+        $user->setCreatedAt(new DateTime('now'));
+        $user->syncRoles(Role::findById($storeUserRequest->get('role')));
+
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     public function edit(User $user): View
@@ -57,8 +76,17 @@ class UserController extends Controller
         );
     }
 
-    public function update(): RedirectResponse
+    public function update(UpdateUserRequest $updateUserRequest, User $user): RedirectResponse
     {
+        $user->name = $updateUserRequest->get('name');
+        $user->email = $updateUserRequest->get('email');
+        $user->password = Hash::make($updateUserRequest->get('password'));
+        $user->setUpdatedAt(new DateTime('now'));
+        $user->syncRoles(Role::findById($updateUserRequest->get('role')));
+
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     public function destroy(User $user): RedirectResponse

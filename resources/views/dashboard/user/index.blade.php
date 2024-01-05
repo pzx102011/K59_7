@@ -25,6 +25,7 @@
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nazwa</th>
+                    <th scope="col">E-mail</th>
                     <th scope="col">Rola</th>
                     <th scope="col" style="width: 250px;">Akcje</th>
                 </tr>
@@ -34,7 +35,8 @@
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->getRoleNames() }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->getRoleNames()[0] }}</td>
                         <td>
                             <form action="{{ route('users.destroy', $user->id) }}" method="post">
                                 @csrf

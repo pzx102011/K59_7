@@ -20,9 +20,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('users.create') }}" method="post">
+                        <form action="{{ route('users.store') }}" method="post">
                             @csrf
-                            @method("PUT")
 
                             <div class="mb-3 row">
                                 <label for="name" class="col-md-4 col-form-label text-md-end text-start">Login</label>
