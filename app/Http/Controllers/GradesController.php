@@ -44,7 +44,7 @@ class GradesController extends Controller
 
         $canManageGrades = $user->hasPermissionTo('modify-grades');
         $canAddGrades = $user->hasPermissionTo('add-grades');
-        dd($canAddGrades);
+
         $pageTitle = match (true) {
             $user->hasRole(UserRoleEnum::Administrator),
             $user->hasRole(UserRoleEnum::Headmaster) => 'Wszystkie oceny',
