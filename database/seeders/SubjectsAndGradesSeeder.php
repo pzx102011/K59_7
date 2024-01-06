@@ -37,11 +37,14 @@ class SubjectsAndGradesSeeder extends Seeder
 
         $currentDate = new DateTime('now');
 
-        for ($i = 0; $i < 1500; $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $subject = $subjects->random();
+
             $gradesData[] = [
                 'grade' => rand(1, 6),
-                'subjects_id' => $subjects->random()->id,
+                'subjects_id' => $subject->id,
                 'pupil_id' => $pupils->random()->id,
+                'tutor_id' => $subject->tutor->id,
                 'created_at' => $currentDate,
             ];
         }

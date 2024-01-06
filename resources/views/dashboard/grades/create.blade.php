@@ -17,15 +17,17 @@
                             <div class="row">
                                 <div class="col-12">
 
-                                    <form action="{{ route('users.store') }}" method="POST">
+                                    <form action="{{ route('grades.store') }}" method="post">
                                         @csrf
+                                        @method("POST")
+
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5 class="modal-title" id="emailContactLabel">
-                                                    Uwtórz Użytkownika</h5>
+                                                    Wystaw nową ocenę</h5>
                                             </div>
 
-                                            @include('dashboard.user._userForm')
+                                            @include('dashboard.grades.form')
 
                                             <div class="card-footer d-flex justify-content-end mt-3 p-3">
                                                 <button type="submit"
@@ -33,7 +35,7 @@
                                                     Zapisz
                                                 </button>
 
-                                                <a href="{{ route('users.index') }}">
+                                                <a href="{{ route('grades.index') }}">
                                                     <button type="button"
                                                             class="btn btn-secondary text-white"
                                                             data-dismiss="modal">Zamknij

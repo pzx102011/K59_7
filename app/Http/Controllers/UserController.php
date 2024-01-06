@@ -91,10 +91,6 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        if ($user->hasRole('Administrator')) {
-            abort(403, 'Administrator cannot be deleted');
-        }
-
         $user->syncRoles([]);
         $user->delete();
 

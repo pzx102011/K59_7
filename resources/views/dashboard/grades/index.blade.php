@@ -17,25 +17,27 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h1 id="grade-table" class="card-title">Oceny uczniów</h1>
+                                            <h1 id="grade-table" class="card-title">{{ $pageTitle }}</h1>
                                         </div>
 
                                         <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="row justify-content-end">
-                                                        <div class="col-md-auto">
-                                                            <a href="{{ route('users.create') }}">
-                                                                <button type="button" class="btn btn-primary btn-sm"
-                                                                        data-placement="bottom"
-                                                                        title="Dodaj użytkownika">
-                                                                    <i class="fas fa-user-plus"></i>Wystaw ocenę
-                                                                </button>
-                                                            </a>
+                                            @if($canAddGrades)
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row justify-content-end">
+                                                            <div class="col-md-auto">
+                                                                <a href="{{ route('grades.create') }}">
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                            data-placement="bottom"
+                                                                            title="Dodaj użytkownika">
+                                                                        <i class="fas fa-user-plus"></i>Wystaw ocenę
+                                                                    </button>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                             <div class="row">
                                                 <table id="grade-table"
                                                        class="table table-bordered table-hover mt-3">
@@ -64,7 +66,7 @@
                                                                 <td>{{ $grade->subject->tutor->name }}</td>
                                                             @endif
                                                             @if(!$loggedUser->hasRole(UserRoleEnum::Pupil))
-                                                                <td>{{ $grade->user->name  }}</td>
+                                                                <td>{{ $grade->pupil->name  }}</td>
                                                             @endif
 
                                                             <td>{{ $grade->subject->name }}</td>
@@ -76,14 +78,15 @@
                                                                         @csrf
                                                                         @method('DELETE')
 
-                                                                        <a href="{{ route('users.edit', $grade->id) }}"
+                                                                        <a href="{{ route('grades.edit', $grade->id) }}"
                                                                            class="btn btn-primary btn-sm">
                                                                             <i class="fas fa-user-edit"></i> Edytuj
                                                                         </a>
 
                                                                         <button type="submit"
                                                                                 class="btn btn-danger btn-sm"
-                                                                                onclick="return confirm('Do you want to delete this user?');">
+                                                                                onclick="return confirm('Czy chcesz ' +
+                                                                                 'usunąć tę ocenę?');">
                                                                             <i class="fas fa-user-times"></i> Usuń
                                                                         </button>
                                                                     </form>

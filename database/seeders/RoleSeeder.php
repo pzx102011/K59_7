@@ -10,14 +10,20 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create(['name' => 'Administrator'])
-            ->givePermissionTo('administrator')
+            ->givePermissionTo(
+                [
+                    'administrator',
+                    'add-grades',
+                    'modify-grades',
+                    'view-grades',
+                ]
+            )
         ;
         Role::create(['name' => 'Dyrektor'])
             ->givePermissionTo(
                 [
-                    'add-all-grades',
-                    'modify-all-grades',
-                    'view-all-grades',
+                    'modify-grades',
+                    'view-grades',
                 ]
             )
         ;
@@ -25,9 +31,9 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Nauczyciel'])
             ->givePermissionTo(
                 [
-                    'add-own-subject-grades',
-                    'modify-own-subject-grades',
-                    'view-own-subject-grades',
+                    'add-grades',
+                    'modify-grades',
+                    'view-grades',
                 ]
             )
         ;
@@ -35,7 +41,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Rodzic'])
             ->givePermissionTo(
                 [
-                    'view-assigned-pupil-grades',
+                    'view-grades',
                 ]
             )
         ;
@@ -43,7 +49,7 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'Uczeń'])
             ->givePermissionTo(
                 [
-                    'view-own-grades',
+                    'view-grades',
                 ]
             )
         ;

@@ -6,7 +6,7 @@ use App\Enums\UserRoleEnum;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 
 class SubjectsGrades extends Model
@@ -20,27 +20,38 @@ class SubjectsGrades extends Model
             $user->hasRole(UserRoleEnum::Administrator),
             $user->hasRole(UserRoleEnum::Headmaster) => self::getAllGrades(),
             $user->hasRole(UserRoleEnum::Tutor) => self::getTutorGrades($user),
-            $user->hasRole(UserRoleEnum::Parent) => self::getAllGrades(),
+            $user->hasRole(UserRoleEnum::Parent) => self::getParentChildrenGrades($user),
             default => self::getPupilGrades($user)
         };
 
         return $gradesBuilder->get();
     }
 
-    private static function getPupilGrades(User $user): Builder
+    private static function getParentChildrenGrades(User $parent): Builder
     {
+        $childrenIds = $parent->children()->get()->modelKeys();
+
         return SubjectsGrades::query()
-            ->where('pupil_id', '=', $user->id)
+            ->whereIn('pupil_id', $childrenIds)
+            ->orderBy('pupil_id')
             ->orderBy('subjects_id')
         ;
     }
 
-    private static function getTutorGrades(User $user): Builder
+    private static function getPupilGrades(User $pupil): Builder
     {
-        $availableSubjects = Subject::all()->where('tutor_id', '=', $user->id)->modelKeys();
+        return SubjectsGrades::query()
+            ->where('pupil_id', '=', $pupil->id)
+            ->orderBy('subjects_id')
+        ;
+    }
+
+    private static function getTutorGrades(User $tutor): Builder
+    {
+        $availableSubjectIds = $tutor->subjects()->get()->modelKeys();
 
         return SubjectsGrades::query()
-            ->whereIn('subjects_id', $availableSubjects)
+            ->whereIn('subjects_id', $availableSubjectIds)
             ->orderBy('subjects_id')
         ;
     }
@@ -52,13 +63,18 @@ class SubjectsGrades extends Model
         ;
     }
 
-    public function user(): HasOne
+    public function pupil(): BelongsTo
     {
-        return $this->hasOne(User::class, 'id', 'pupil_id');
+        return $this->belongsTo(User::class, 'pupil_id', 'id');
     }
 
-    public function subject(): HasOne
+    public function subject(): BelongsTo
     {
-        return $this->hasOne(Subject::class, 'id', 'subjects_id');
+        return $this->belongsTo(Subject::class, 'subjects_id', 'id');
+    }
+
+    public function tutor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'tutor_id', 'id');
     }
 }

@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function subject(): HasMany
+    public function subjects(): HasMany
     {
         return $this->hasMany(Subject::class, 'tutor_id', 'id');
     }

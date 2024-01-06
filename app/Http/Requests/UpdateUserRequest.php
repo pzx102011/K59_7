@@ -17,15 +17,15 @@ class UpdateUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule', 'array<mixed>', 'string>
      */
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:125',
-            'email' => 'required|string|min:2|max:125|email',
-            'password' => 'required|string|min:2|max:125',
-            'role' => 'required',
+            'name' => ['required', 'string', 'min:2', 'max:125'],
+            'email' => ['required', 'string', 'min:2', 'max:125', 'email'],
+            'password' => ['required', 'string', 'min:2', 'max:125'],
+            'role' => ['required', 'integer', 'min:1'],
         ];
     }
 }

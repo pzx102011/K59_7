@@ -11,7 +11,7 @@ class UpdateGradeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateGradeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'grade' => ['required', 'integer', 'min:1', 'max:6'],
+            'tutor' => ['integer', 'min:1'],
+            'pupil' => ['integer', 'min:1'],
+            'subject' => ['integer', 'min:1'],
         ];
     }
 }
