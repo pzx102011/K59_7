@@ -6,6 +6,7 @@ use App\Enums\UserRoleEnum;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Subject;
+use App\Models\SubjectsGrades;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -115,6 +116,10 @@ class SubjectController extends Controller
 
     public function destroy(Subject $subject): RedirectResponse
     {
+        SubjectsGrades::destroy(
+            SubjectsGrades::all()->where('subject_id', '=', $subject->id)->modelKeys()
+        );
+
         $subject->delete();
 
         return redirect()
