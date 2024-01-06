@@ -12,6 +12,7 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'administrator',
             'manage-users',
+            'manage-subjects',
             'add-grades',
             'modify-grades',
             'view-grades',

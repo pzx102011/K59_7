@@ -101,6 +101,8 @@ class GradesController extends Controller
         $grade->tutor_id = $storeGradeRequest->get('tutor');
         $grade->subject_id = $storeGradeRequest->get('subject');
 
+        $grade->save();
+
         return redirect()->route('grades.index');
     }
 

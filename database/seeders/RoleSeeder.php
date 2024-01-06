@@ -13,6 +13,7 @@ class RoleSeeder extends Seeder
             ->givePermissionTo(
                 [
                     'administrator',
+                    'manage-subjects',
                     'manage-users',
                     'add-grades',
                     'modify-grades',
@@ -25,6 +26,7 @@ class RoleSeeder extends Seeder
                 [
                     'modify-grades',
                     'view-grades',
+                    'manage-subjects',
                 ]
             )
         ;
