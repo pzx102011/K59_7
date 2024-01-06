@@ -17,7 +17,7 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h3 id="mail-table" class="card-title">Użytkownicy</h3>
+                                            <h3 id="mail-table" class="card-title">Zarządzaj użytkownikami</h3>
                                         </div>
 
                                         <div class="card-body">

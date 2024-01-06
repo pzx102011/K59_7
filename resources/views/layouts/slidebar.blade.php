@@ -22,17 +22,31 @@
                     <li class="nav-header">DZIENNIK</li>
                     <li class="nav-item menu-open">
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('grades.index') }}" class="nav-link">
-                                    <i class="nav-icon far fa-plus-square"></i>
-                                    <p>Oceny</p>
-                                </a>
-                            </li>
+                            @if(Auth::user()->hasPermissionTo('view-grades'))
+                                <li class="nav-item">
+                                    <a href="{{ route('grades.index') }}" class="nav-link">
+                                        <i class="nav-icon far fa-plus-square"></i>
+                                        <p>Oceny</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
 
-                    @if(Auth::user()->hasRole(UserRoleEnum::Administrator))
-                        <li class="nav-header">ADMIN</li>
+                    <li class="nav-header">ADMIN</li>
+                    @if(Auth::user()->hasPermissionTo('manage-subjects'))
+                        <li class="nav-item menu-open">
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('subjects.index') }}" class="nav-link">
+                                        <i class="fas fa-users-cog"></i>
+                                        <p>Przedmioty</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                    @if(Auth::user()->hasPermissionTo('manage-users'))
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">

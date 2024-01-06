@@ -2,16 +2,19 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Subject;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+use function sprintf;
+
+class UpdateSubjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,8 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'subject' => ['required', sprintf('unique:%s,name', Subject::class), 'string', 'min:1'],
+            'tutor' => ['required', 'integer', 'min:1'],
         ];
     }
 }

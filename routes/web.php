@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradesController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +27,6 @@ Route::resources(
         'users' => UserController::class,
         'grades' => GradesController::class,
         'dashboard' => DashboardController::class,
+        'subjects' => SubjectController::class,
     ]
 );
