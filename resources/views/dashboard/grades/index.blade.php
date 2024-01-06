@@ -21,68 +21,86 @@
                                         </div>
 
                                         <div class="card-body">
-
-                                            <table id="grade-table"
-                                                   class="table table-bordered table-hover mt-3">
-                                                <thead>
-                                                <tr>
-                                                    <th>Ocena</th>
-
-                                                    @if(!$loggedUser->hasRole(UserRoleEnum::Tutor))
-                                                        <th>Uczeń</th>
-                                                    @endif
-                                                    @if(!$loggedUser->hasRole(UserRoleEnum::Pupil))
-                                                        <th>Nauczyciel</th>
-                                                    @endif
-                                                    <th>Przedmiot</th>
-                                                    @if($canManageGrades)
-                                                        <th style="width: 180px;">Akcje</th>
-                                                    @endif
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                @forelse ($grades as $grade)
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-md-auto">
+                                                            <a href="{{ route('users.create') }}">
+                                                                <button type="button" class="btn btn-primary btn-sm"
+                                                                        data-placement="bottom"
+                                                                        title="Dodaj użytkownika">
+                                                                    <i class="fas fa-user-plus"></i>Wystaw ocenę
+                                                                </button>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <table id="grade-table"
+                                                       class="table table-bordered table-hover mt-3">
+                                                    <thead>
                                                     <tr>
-                                                        <th scope="row">{{ $grade->grade }}</th>
+                                                        <th>Ocena</th>
+
                                                         @if(!$loggedUser->hasRole(UserRoleEnum::Tutor))
-                                                            <td>{{ $grade->user->name }}</td>
+                                                            <th>Nauczyciel</th>
                                                         @endif
                                                         @if(!$loggedUser->hasRole(UserRoleEnum::Pupil))
-                                                            <td>{{ $grade->subject->tutor->name }}</td>
+                                                            <th>Uczeń</th>
                                                         @endif
-
-                                                        <td>{{ $grade->subject->name }}</td>
-                                                        <td class="text-center">
-                                                            @if($canManageGrades)
-                                                                <form action="{{ route('grades.destroy', $grade->id) }}"
-                                                                      method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-
-                                                                    <a href="{{ route('users.edit', $grade->id) }}"
-                                                                       class="btn btn-primary btn-sm">
-                                                                        <i class="fas fa-user-edit"></i> Edytuj
-                                                                    </a>
-
-                                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                                            onclick="return confirm('Do you want to delete this user?');">
-                                                                        <i class="fas fa-user-times"></i> Usuń
-                                                                    </button>
-                                                                </form>
-                                                            @endif
-                                                        </td>
+                                                        <th>Przedmiot</th>
+                                                        @if($canManageGrades)
+                                                            <th style="width: 180px;">Akcje</th>
+                                                        @endif
                                                     </tr>
-                                                @empty
-                                                    <td colspan="3">
-                                                        <span class="text-danger">
-                                                            <strong>No Role Found!</strong>
-                                                        </span>
-                                                    </td>
-                                                @endforelse
+                                                    </thead>
+                                                    <tbody>
 
-                                                </tbody>
-                                            </table>
+                                                    @forelse ($grades as $grade)
+                                                        <tr>
+                                                            <th scope="row">{{ $grade->grade }}</th>
+                                                            @if(!$loggedUser->hasRole(UserRoleEnum::Tutor))
+                                                                <td>{{ $grade->subject->tutor->name }}</td>
+                                                            @endif
+                                                            @if(!$loggedUser->hasRole(UserRoleEnum::Pupil))
+                                                                <td>{{ $grade->user->name  }}</td>
+                                                            @endif
+
+                                                            <td>{{ $grade->subject->name }}</td>
+                                                            <td class="text-center">
+                                                                @if($canManageGrades)
+                                                                    <form
+                                                                        action="{{ route('grades.destroy', $grade->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+
+                                                                        <a href="{{ route('users.edit', $grade->id) }}"
+                                                                           class="btn btn-primary btn-sm">
+                                                                            <i class="fas fa-user-edit"></i> Edytuj
+                                                                        </a>
+
+                                                                        <button type="submit"
+                                                                                class="btn btn-danger btn-sm"
+                                                                                onclick="return confirm('Do you want to delete this user?');">
+                                                                            <i class="fas fa-user-times"></i> Usuń
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                        <td colspan="3">
+                                                        <span class="text-danger">
+                                                            <strong>Brak wystawionych ocen</strong>
+                                                        </span>
+                                                        </td>
+                                                    @endforelse
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

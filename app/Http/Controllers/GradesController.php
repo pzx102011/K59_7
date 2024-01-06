@@ -13,20 +13,20 @@ use Spatie\Permission\Models\Role;
 
 use function abort;
 use function redirect;
-use function sprintf;
 
 class GradesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(sprintf('role:%s', UserRoleEnum::Administrator->value));
     }
 
     public function index(Request $request): View
     {
         $user = Auth::user();
         $grades = SubjectsGrades::getGradesAvailableForUser($user);
+
+        dd($user->parents()->get());
 
         $canManageGrades = $user->hasRole(UserRoleEnum::Administrator)
             || $user->hasRole(UserRoleEnum::Headmaster)

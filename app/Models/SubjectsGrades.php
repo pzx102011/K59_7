@@ -4,10 +4,10 @@ namespace App\Models;
 
 use App\Enums\UserRoleEnum;
 use Illuminate\Contracts\Database\Query\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Collection;
 
 class SubjectsGrades extends Model
 {
@@ -19,8 +19,8 @@ class SubjectsGrades extends Model
         $gradesBuilder = match (true) {
             $user->hasRole(UserRoleEnum::Administrator),
             $user->hasRole(UserRoleEnum::Headmaster) => self::getAllGrades(),
-            $user->hasRole(UserRoleEnum::Tutor) => static::all(),
-            $user->hasRole(UserRoleEnum::Parent) => static::all(),
+            $user->hasRole(UserRoleEnum::Tutor) => self::getTutorGrades($user),
+            $user->hasRole(UserRoleEnum::Parent) => self::getAllGrades(),
             default => self::getPupilGrades($user)
         };
 
@@ -37,7 +37,10 @@ class SubjectsGrades extends Model
 
     private static function getTutorGrades(User $user): Builder
     {
+        $availableSubjects = Subject::all()->where('tutor_id', '=', $user->id)->modelKeys();
+
         return SubjectsGrades::query()
+            ->whereIn('subjects_id', $availableSubjects)
             ->orderBy('subjects_id')
         ;
     }

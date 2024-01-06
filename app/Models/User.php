@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -45,5 +46,15 @@ class User extends Authenticatable
     public function subject(): HasMany
     {
         return $this->hasMany(Subject::class, 'tutor_id', 'id');
+    }
+
+    public function parents(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'family', 'pupil_id', 'parent_id');
+    }
+
+    public function children(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'family', 'parent_id', 'pupil_id');
     }
 }
