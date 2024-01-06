@@ -14,6 +14,7 @@ use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 use function redirect;
+use function sprintf;
 
 class SubjectController extends Controller
 {
@@ -57,14 +58,23 @@ class SubjectController extends Controller
 
     public function store(StoreSubjectRequest $storeSubjectRequest): RedirectResponse
     {
-        Subject::create(
+        $subject = Subject::create(
             [
                 'name' => $storeSubjectRequest->get('subject'),
                 'tutor_id' => $storeSubjectRequest->get('tutor'),
             ]
         );
 
-        return redirect()->route('subjects.index');
+        return redirect()
+            ->route('subjects.index')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie utworzono przedmiot %s',
+                    $subject->name,
+                )
+            )
+        ;
     }
 
     public function edit(Subject $subject): View
@@ -91,7 +101,16 @@ class SubjectController extends Controller
 
         $subject->save();
 
-        return redirect()->route('subjects.index');
+        return redirect()
+            ->route('subjects.index')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie zaktualizowano przedmiot %s',
+                    $subject->name,
+                )
+            )
+        ;
     }
 
     public function destroy(Subject $subject): RedirectResponse
@@ -100,6 +119,13 @@ class SubjectController extends Controller
 
         return redirect()
             ->route('subjects.index')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie usunięto przedmiot %s',
+                    $subject->name,
+                )
+            )
         ;
     }
 }

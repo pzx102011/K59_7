@@ -33,30 +33,32 @@
                         </ul>
                     </li>
 
-                    <li class="nav-header">ADMIN</li>
-                    @if(Auth::user()->hasPermissionTo('manage-subjects'))
-                        <li class="nav-item menu-open">
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('subjects.index') }}" class="nav-link">
-                                        <i class="fas fa-users-cog"></i>
-                                        <p>Przedmioty</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                    @if(Auth::user()->hasPermissionTo('manage-users'))
-                        <li class="nav-item menu-open">
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('users.index') }}" class="nav-link">
-                                        <i class="fas fa-users-cog"></i>
-                                        <p>Użytkownicy</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                    @if(Auth::user()->hasAnyPermission('manage-subjects','manage-users'))
+                        <li class="nav-header">ZARZĄDZANIE</li>
+                        @if(Auth::user()->hasPermissionTo('manage-subjects'))
+                            <li class="nav-item menu-open">
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('subjects.index') }}" class="nav-link">
+                                            <i class="fas fa-users-cog"></i>
+                                            <p>Przedmioty</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                        @if(Auth::user()->hasPermissionTo('manage-users'))
+                            <li class="nav-item menu-open">
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.index') }}" class="nav-link">
+                                            <i class="fas fa-users-cog"></i>
+                                            <p>Użytkownicy</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                     @endif
 
                     <li class="nav-header"></li>

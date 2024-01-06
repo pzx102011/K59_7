@@ -19,7 +19,17 @@
                                         <div class="card-header">
                                             <h1 id="grade-table" class="card-title">Zarządzaj przedmiotami</h1>
                                         </div>
-
+                                        @if(session('success'))
+                                            <div class="row">
+                                                <div class="col-2"></div>
+                                                <div class="col-8">
+                                                    <div class="alert alert-success" style="text-align: center;">
+                                                        {!! session('success') !!}
+                                                    </div>
+                                                </div>
+                                                <div class="col-2"></div>
+                                            </div>
+                                        @endif
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -55,8 +65,8 @@
 
                                                             <td class="text-center">
                                                                 <form
-                                                                    action="{{ route('subjects.destroy', $subject->id) }}"
-                                                                    method="post">
+                                                                        action="{{ route('subjects.destroy', $subject->id) }}"
+                                                                        method="post">
                                                                     @csrf
                                                                     @method('DELETE')
 

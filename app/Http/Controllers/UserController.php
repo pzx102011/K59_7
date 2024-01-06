@@ -13,6 +13,7 @@ use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 use function redirect;
+use function sprintf;
 
 class UserController extends Controller
 {
@@ -60,7 +61,16 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()
+            ->route('users.index')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie utworzono użytkownika %s',
+                    $user->name,
+                )
+            )
+        ;
     }
 
     public function edit(User $user): View
@@ -84,7 +94,16 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('users.index');
+        return redirect()
+            ->route('users.index')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie zaktualizowano użytkownika %s',
+                    $user->name,
+                )
+            )
+        ;
     }
 
     public function destroy(User $user): RedirectResponse
@@ -94,7 +113,13 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.index')
-            ->withSuccess('User is deleted successfully.')
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie usunięto użytkownika %s',
+                    $user->name,
+                )
+            )
         ;
     }
 }

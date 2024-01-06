@@ -15,6 +15,7 @@ use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 use function redirect;
+use function sprintf;
 
 class GradesController extends Controller
 {
@@ -103,7 +104,14 @@ class GradesController extends Controller
 
         $grade->save();
 
-        return redirect()->route('grades.index');
+        return redirect()->route('grades.index')->with(
+            'success',
+            sprintf(
+                'Pomyślnie wystawiono ocenę z %s dla %s',
+                $grade->subject->name,
+                $grade->pupil->name,
+            )
+        );
     }
 
     public function edit(SubjectsGrades $grade): View
@@ -153,7 +161,14 @@ class GradesController extends Controller
 
         $grade->save();
 
-        return redirect()->route('grades.index');
+        return redirect()->route('grades.index')->with(
+            'success',
+            sprintf(
+                'Pomyślnie zaktualizowano ocenę z %s dla %s',
+                $grade->subject->name,
+                $grade->pupil->name,
+            )
+        );
     }
 
     public function destroy(SubjectsGrades $grade): RedirectResponse
@@ -162,6 +177,14 @@ class GradesController extends Controller
 
         return redirect()
             ->route('grades.index')
-        ;
+            ->with(
+                'success',
+                sprintf(
+                    'Pomyślnie usunięto ocenę z %s dla %s',
+                    $grade->subject->name,
+                    $grade->pupil->name,
+                )
+            )
+        ;;
     }
 }
