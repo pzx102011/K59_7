@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 use function redirect;
+use function route;
 
 class AuthenticationController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View | RedirectResponse
     {
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        if (Auth::user() !== null) {
+            return redirect(route('dashboard.index'));
+        }
 
         return \view('authentication.loginform');
     }
@@ -46,8 +47,8 @@ class AuthenticationController extends Controller
             return redirect()->intended('dashboard');
         }
 
-        return back()
-            ->withErrors(['email' => 'Nieprawidłowy login lub hasło'])
+        return redirect(route('login.index'))
+            ->with('error', 'Nieprawidłowy login lub hasło')
             ->onlyInput('email')
         ;
     }

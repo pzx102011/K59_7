@@ -9,7 +9,17 @@
                     <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
                 </div>
                 <!-- /.login-logo -->
-
+                @if(session('error'))
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            <div class="alert alert-danger" style="text-align: center;">
+                                {!! session('error') !!}
+                            </div>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-body login-card-body">
                         <p class="login-box-msg">Zaloguj się</p>
