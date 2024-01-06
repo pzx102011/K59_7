@@ -26,8 +26,6 @@ class GradesController extends Controller
         $user = Auth::user();
         $grades = SubjectsGrades::getGradesAvailableForUser($user);
 
-        dd($user->parents()->get());
-
         $canManageGrades = $user->hasRole(UserRoleEnum::Administrator)
             || $user->hasRole(UserRoleEnum::Headmaster)
             || $user->hasRole(UserRoleEnum::Tutor);
