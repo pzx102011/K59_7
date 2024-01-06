@@ -32,7 +32,7 @@ class SubjectsAndGradesSeeder extends Seeder
             $grades[] = [
                 'grade' => rand(1, 6),
                 'subjects_id' => rand(1, 5),
-                'pupil_id' => rand(4, 6),
+                'pupil_id' => rand(1, 9),
                 'created_at' => $currentDate,
             ];
         }

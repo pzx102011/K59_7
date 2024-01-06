@@ -1,4 +1,5 @@
-<!-- Main Sidebar Container -->
+@php use App\Enums\UserRoleEnum; @endphp
+    <!-- Main Sidebar Container -->
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Sidebar -->
@@ -7,7 +8,7 @@
         @auth
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                    <a href="{{ route('dashboard.index') }}" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -27,25 +28,9 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Uwagi</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-columns"></i>
-                                    <p>Plan zajęć</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
-                    @if(Auth::user()->roles && 'Administrator' === Auth::user()->roles->toArray()[0]['name'] )
+                    @if(Auth::user()->hasRole(UserRoleEnum::Administrator))
                         <li class="nav-header">ADMIN</li>
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">

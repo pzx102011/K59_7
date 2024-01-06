@@ -17,6 +17,8 @@
                         <a href="{{route('users.index')}}" class="btn btn-primary btn-sm">Zarządzaj
                             użytkownikami</a>
                     @endif
+                    <a href="{{route('grades.index')}}" class="btn btn-primary btn-sm">Zarządzaj
+                        Ocenami</a>
                 </div>
             </div>
         </div>

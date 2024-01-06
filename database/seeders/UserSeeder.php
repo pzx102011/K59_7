@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         User::create(
             [
-                'name' => 'jlistewnik',
+                'name' => 'Jerzy Listewnik',
                 'email' => 'pzx102011@student.poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'jlewandowski',
+                'name' => 'Jakub Lewandowski',
                 'email' => 'pzx100025@student.poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'tnowacki',
+                'name' => 'Tomasz Nowacki',
                 'email' => 'tomasz.nowacki@poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
         ;
         User::create(
             [
-                'name' => 'mszyper',
+                'name' => 'Mirosław Szyper',
                 'email' => 'miroslaw.szyper@poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'ttestowy',
+                'name' => 'Janusz Testowy',
                 'email' => 'testowyuczen@poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'fbar',
+                'name' => 'Zygmunt Testowy',
                 'email' => 'foobar@poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -84,7 +84,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'wkubaczyk',
+                'name' => 'Hermenegilda Testowa',
                 'email' => 'pzx99981@student.poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'tnauczyciel',
+                'name' => 'Zdzisław Belfer',
                 'email' => 'tnauczyciel@student.poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
@@ -104,7 +104,7 @@ class UserSeeder extends Seeder
 
         User::create(
             [
-                'name' => 'tbelfer',
+                'name' => 'Tadeusz Belfer',
                 'email' => 'tbelfer@student.poznan.merito.pl',
                 'password' => Hash::make('testowehaselko'),
                 'created_at' => new DateTime('now'),
