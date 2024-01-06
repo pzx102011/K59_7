@@ -21,11 +21,14 @@ return new class extends Migration {
         Schema::create(
             'subjects_grades',
             function (Blueprint $table) {
+                $table->id();
                 $table->smallInteger('grade');
                 $table->bigInteger('subjects_id', unsigned: true);
                 $table->bigInteger('pupil_id', unsigned: true);
+                $table->bigInteger('tutor_id', unsigned: true);
                 $table->timestamps();
 
+                $table->foreign('tutor_id')->references('id')->on('users');
                 $table->foreign('subjects_id')->references('id')->on('subjects');
                 $table->foreign('pupil_id')->references('id')->on('users');
             }

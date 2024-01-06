@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\UserRoleEnum;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -14,14 +13,13 @@ use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
 use function redirect;
-use function sprintf;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware(sprintf('role:%s', UserRoleEnum::Administrator->value));
+        $this->middleware('permission:manage-users');
     }
 
     public function index(): View
@@ -91,10 +89,6 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        if ($user->hasRole('Administrator')) {
-            abort(403, 'Administrator cannot be deleted');
-        }
-
         $user->syncRoles([]);
         $user->delete();
 
@@ -103,5 +97,4 @@ class UserController extends Controller
             ->withSuccess('User is deleted successfully.')
         ;
     }
-
 }

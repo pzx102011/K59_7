@@ -1,4 +1,5 @@
-<!-- Main Sidebar Container -->
+@php use App\Enums\UserRoleEnum; @endphp
+    <!-- Main Sidebar Container -->
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Sidebar -->
@@ -22,36 +23,20 @@
                     <li class="nav-item menu-open">
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('grades.index') }}" class="nav-link">
                                     <i class="nav-icon far fa-plus-square"></i>
                                     <p>Oceny</p>
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Uwagi</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-columns"></i>
-                                    <p>Plan zajęć</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
 
-                    @if(Auth::user()->roles && 'Administrator' === Auth::user()->roles->toArray()[0]['name'] )
+                    @if(Auth::user()->hasRole(UserRoleEnum::Administrator))
                         <li class="nav-header">ADMIN</li>
                         <li class="nav-item menu-open">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/users') }}" class="nav-link">
+                                    <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="fas fa-users-cog"></i>
                                         <p>Użytkownicy</p>
                                     </a>

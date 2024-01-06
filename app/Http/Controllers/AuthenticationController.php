@@ -24,7 +24,7 @@ class AuthenticationController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect(route('login.index'));
     }
 
     public function authenticate(Request $request): RedirectResponse

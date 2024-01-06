@@ -9,107 +9,73 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
+use function sprintf;
+use function str_replace;
+use function strtolower;
+
 class UserSeeder extends Seeder
 {
+
+    public function __construct(
+        private string $password = 'testowehaselko',
+        private DateTime $createdDate = new DateTime('now'),
+    ) {
+    }
+
     public function run(): void
     {
-        User::create(
-            [
-                'name' => 'jlistewnik',
-                'email' => 'pzx102011@student.poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Administrator->value)->id,
-            ]
-        )
-            ->assignRole(UserRoleEnum::Administrator)
-        ;
+        $admin = Role::findByName(UserRoleEnum::Administrator->value);
+        $headmaster = Role::findByName(UserRoleEnum::Headmaster->value);
+        $tutor = Role::findByName(UserRoleEnum::Tutor->value);
+        $parent = Role::findByName(UserRoleEnum::Parent->value);
+        $pupil = Role::findByName(UserRoleEnum::Pupil->value);
 
-        User::create(
-            [
-                'name' => 'jlewandowski',
-                'email' => 'pzx100025@student.poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Headmaster->value)->id,
-            ]
-        )
-            ->assignRole(UserRoleEnum::Headmaster)
-        ;
+        $data = [
+            ['name' => 'Jerzy Listewnik', 'email' => 'pzx102011@student.poznan.merito.pl', 'role' => $admin],
 
-        User::create(
-            [
-                'name' => 'tnowacki',
-                'email' => 'tomasz.nowacki@poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Tutor->value)->id,
-            ]
-        )
-            ->assignRole(UserRoleEnum::Tutor)
-        ;
-        User::create(
-            [
-                'name' => 'mszyper',
-                'email' => 'miroslaw.szyper@poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Parent->value)->id,
-            ]
-        )
-            ->assignRole(UserRoleEnum::Parent)
-        ;
+            ['name' => 'Jakub Lewandowski', 'email' => 'pzx100025@student.poznan.merito.pl', 'role' => $headmaster],
 
-        User::create(
-            [
-                'name' => 'ttestowy',
-                'email' => 'testowyuczen@poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Pupil->value)->id,
-            ]
-        )
-            ->assignRole(UserRoleEnum::Pupil)
-        ;
+            ['name' => 'Tomasz Nowacki', 'role' => $tutor],
+            ['name' => 'Usain Bolt', 'role' => $tutor],
+            ['name' => 'Andrzej Gołota', 'role' => $tutor],
+            ['name' => 'Iga Świątek', 'role' => $tutor],
 
-        User::create(
-            [
-                'name' => 'fbar',
-                'email' => 'foobar@poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Pupil->value)->id,
-            ]
-        )->assignRole(UserRoleEnum::Pupil);
+            ['name' => 'Mirosław Szyper', 'role' => $parent],
+            ['name' => 'Paloma Zając', 'role' => $parent],
+            ['name' => 'Zdzisława Brzęczyszczykiewicz', 'role' => $parent],
+            ['name' => 'Aldona Zgrzytozgryz', 'role' => $parent],
+            ['name' => 'Tadeusz Wyliniały', 'role' => $parent],
+            ['name' => 'Andrzej Przeciąg', 'role' => $parent],
+            ['name' => 'Herman Altdorf', 'role' => $parent],
 
-        User::create(
-            [
-                'name' => 'wkubaczyk',
-                'email' => 'pzx99981@student.poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Pupil->value)->id,
-            ]
-        )->assignRole(UserRoleEnum::Pupil);
+            ['name' => 'Brian May', 'role' => $pupil],
+            ['name' => 'Bruce Dickinson', 'role' => $pupil],
+            ['name' => 'Rob Halford', 'role' => $pupil],
+            ['name' => 'James Hetfield', 'role' => $pupil],
+            ['name' => 'Joe Satriani', 'role' => $pupil],
+            ['name' => 'Floor Jansen', 'role' => $pupil],
+        ];
 
-        User::create(
-            [
-                'name' => 'tnauczyciel',
-                'email' => 'tnauczyciel@student.poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Tutor->value)->id,
-            ]
-        )->assignRole(UserRoleEnum::Tutor);
+        foreach ($data as $item) {
+            User::create(
+                [
+                    'name' => $item['name'],
+                    'email' => $item['email'] ?? $this->createEmailFromName($item['name']),
+                    'password' => Hash::make($this->password),
+                    'created_at' => $this->createdDate,
+                    'role_id' => $item['role']->id,
+                ]
+            )
+                ->assignRole($item['role'])
+            ;
+        }
+    }
 
-        User::create(
-            [
-                'name' => 'tbelfer',
-                'email' => 'tbelfer@student.poznan.merito.pl',
-                'password' => Hash::make('testowehaselko'),
-                'created_at' => new DateTime('now'),
-                'role_id' => Role::findByName(UserRoleEnum::Tutor->value)->id,
-            ]
-        )->assignRole(UserRoleEnum::Tutor);
+    private function createEmailFromName(string $name): string
+    {
+        return sprintf(
+            '%s@poznan.merito.pl',
+            strtolower(str_replace(' ', '.', $name))
+        );
     }
 }
