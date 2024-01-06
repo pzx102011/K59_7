@@ -6,7 +6,8 @@
                    class="form-control @error('grade') is-invalid @enderror"
                    id="grade"
                    name="grade"
-                   placeholder="6"
+                   min="1"
+                   max="6"
                    @if(isset($grade)) value="{{ $grade->grade  }}" @endif
             >
             @if ($errors->has('grade'))

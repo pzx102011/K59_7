@@ -66,7 +66,7 @@ class GradesController extends Controller
         );
     }
 
-    public function create(): View
+    public function create(): View | RedirectResponse
     {
         /** @var User $loggedUser */
         $loggedUser = Auth::user();
@@ -81,6 +81,16 @@ class GradesController extends Controller
         $subjects = $isTutor
             ? Subject::all()->where('tutor_id', $loggedUser->id)
             : Subject::all();
+
+        if ($isTutor && $loggedUser->subjects->isEmpty()) {
+            return redirect()->route('grades.index')->with(
+                'message',
+                sprintf(
+                    '%s nie ma przypisanych żadnych przedmiotów i nie może wystawiać ocen',
+                    $loggedUser->name
+                )
+            );
+        }
 
         return \view(
             'dashboard.grades.create',
@@ -103,6 +113,13 @@ class GradesController extends Controller
         $grade->subject_id = $storeGradeRequest->get('subject');
 
         $grade->save();
+
+        if ($grade->tutor_id !== $grade->subject->tutor->id) {
+            return redirect()
+                ->route('grades.index')
+                ->with('error', 'Nie można wystawić oceny jako nauczyciel, który nie uczy danego przedmiotu!')
+            ;
+        }
 
         return redirect()->route('grades.index')->with(
             'success',
