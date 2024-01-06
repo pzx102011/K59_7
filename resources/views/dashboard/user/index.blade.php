@@ -58,11 +58,13 @@
                                                         <td>{{ $user->email }}</td>
                                                         <td>{{ implode(', ', $user->getRoleNames()->toArray()) }}</td>
                                                         <td class="text-center">
-                                                            <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                                                            <form action="{{ route('users.destroy', $user->id) }}"
+                                                                  method="post">
                                                                 @csrf
                                                                 @method('DELETE')
 
-                                                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-sm">
+                                                                <a href="{{ route('users.edit', $user->id) }}"
+                                                                   class="btn btn-primary btn-sm">
                                                                     <i class="fas fa-user-edit"></i> Edytuj
                                                                 </a>
 
@@ -83,6 +85,11 @@
 
                                                 </tbody>
                                             </table>
+
+
+                                        </div>
+                                        <div class="card-footer">
+                                            {{ $users->links() }}
                                         </div>
                                     </div>
                                 </div>

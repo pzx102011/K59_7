@@ -7,14 +7,12 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Collection;
 
 class SubjectsGrades extends Model
 {
     use HasFactory;
 
-    /** @return Collection<SubjectsGrades> */
-    public static function getGradesAvailableForUser(User $user): Collection
+    public static function getGradesAvailableForUser(User $user): Builder
     {
         $gradesBuilder = match (true) {
             $user->hasRole(UserRoleEnum::Administrator),
@@ -24,7 +22,7 @@ class SubjectsGrades extends Model
             default => self::getPupilGrades($user)
         };
 
-        return $gradesBuilder->get();
+        return $gradesBuilder;
     }
 
     private static function getParentChildrenGrades(User $parent): Builder

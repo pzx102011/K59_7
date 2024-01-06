@@ -30,7 +30,7 @@ class UserController extends Controller
             'dashboard.user.index',
             [
                 'users' => User::orderBy('id', 'desc')->paginate(10),
-                'loggedUser' => Auth::user(),
+                'loggedUser' => $user,
             ]
         );
     }
