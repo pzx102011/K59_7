@@ -14,7 +14,7 @@ return new class extends Migration {
                 $table->string('name');
 
                 $table->bigInteger('tutor_id', unsigned: true);
-                $table->foreign('tutor_id')->references('id')->on('users');
+                $table->foreign('tutor_id')->references('id')->on('users')->onDelete('cascade');
             }
         );
 
@@ -28,9 +28,9 @@ return new class extends Migration {
                 $table->bigInteger('tutor_id', unsigned: true);
                 $table->timestamps();
 
-                $table->foreign('tutor_id')->references('id')->on('users');
-                $table->foreign('subjects_id')->references('id')->on('subjects');
-                $table->foreign('pupil_id')->references('id')->on('users');
+                $table->foreign('tutor_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('subjects_id')->references('id')->on('subjects')->onDelete('cascade');
+                $table->foreign('pupil_id')->references('id')->on('users')->onDelete('cascade');
             }
         );
     }
