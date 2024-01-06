@@ -8,7 +8,8 @@
         @auth
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="info">
-                    <a href="{{ route('dashboard.index') }}" class="d-block">{{ Auth::user()->name }}</a>
+                    <a class="d-block">{{ Auth::user()->name }}</a>
+                    <a class="d-block text-sm">{{ implode(', ', Auth::user()->getRoleNames()->toArray()) }}</a>
                 </div>
             </div>
 
