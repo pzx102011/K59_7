@@ -23,13 +23,13 @@ return new class extends Migration {
             function (Blueprint $table) {
                 $table->id();
                 $table->smallInteger('grade');
-                $table->bigInteger('subjects_id', unsigned: true);
+                $table->bigInteger('subject_id', unsigned: true);
                 $table->bigInteger('pupil_id', unsigned: true);
                 $table->bigInteger('tutor_id', unsigned: true);
                 $table->timestamps();
 
                 $table->foreign('tutor_id')->references('id')->on('users')->onDelete('cascade');
-                $table->foreign('subjects_id')->references('id')->on('subjects')->onDelete('cascade');
+                $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
                 $table->foreign('pupil_id')->references('id')->on('users')->onDelete('cascade');
             }
         );

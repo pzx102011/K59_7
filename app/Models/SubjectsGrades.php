@@ -32,7 +32,7 @@ class SubjectsGrades extends Model
         return SubjectsGrades::query()
             ->whereIn('pupil_id', $childrenIds)
             ->orderBy('pupil_id')
-            ->orderBy('subjects_id')
+            ->orderBy('subject_id')
         ;
     }
 
@@ -40,7 +40,7 @@ class SubjectsGrades extends Model
     {
         return SubjectsGrades::query()
             ->where('pupil_id', '=', $pupil->id)
-            ->orderBy('subjects_id')
+            ->orderBy('subject_id')
         ;
     }
 
@@ -49,8 +49,8 @@ class SubjectsGrades extends Model
         $availableSubjectIds = $tutor->subjects()->get()->modelKeys();
 
         return SubjectsGrades::query()
-            ->whereIn('subjects_id', $availableSubjectIds)
-            ->orderBy('subjects_id')
+            ->whereIn('subject_id', $availableSubjectIds)
+            ->orderBy('subject_id')
         ;
     }
 
@@ -68,7 +68,7 @@ class SubjectsGrades extends Model
 
     public function subject(): BelongsTo
     {
-        return $this->belongsTo(Subject::class, 'subjects_id', 'id');
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 
     public function tutor(): BelongsTo

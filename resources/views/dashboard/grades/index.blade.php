@@ -21,6 +21,28 @@
                             <div class="col-2"></div>
                         </div>
                     @endif
+                    @if(session('message'))
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <div class="alert alert-info" style="text-align: center;">
+                                    {!! session('message') !!}
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <div class="alert alert-danger" style="text-align: center;">
+                                    {!! session('error') !!}
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    @endif
                     <section class="content">
                         <div class="container-fluid">
                             <div class="row">
