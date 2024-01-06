@@ -11,12 +11,16 @@ use function redirect;
 
 class AuthenticationController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
         return \view('authentication.loginform');
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
 
@@ -43,7 +47,7 @@ class AuthenticationController extends Controller
         }
 
         return back()
-            ->withErrors(['email' => 'The provided credentials do not match our records.'])
+            ->withErrors(['email' => 'Nieprawidłowy login lub hasło'])
             ->onlyInput('email')
         ;
     }

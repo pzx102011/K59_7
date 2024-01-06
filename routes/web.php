@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', fn () => view('welcome'));
+Route::get('/', fn () => redirect(route('dashboard.index')));
 Route::get('/login', [AuthenticationController::class, 'index'])->name('login.index');
 Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 Route::post('/authenticate', [AuthenticationController::class, 'authenticate'])->name('login.authenticate');

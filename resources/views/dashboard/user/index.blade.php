@@ -10,7 +10,17 @@
                     <div class="login-logo">
                         <a href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
                     </div>
-
+                    @if(session('success'))
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <div class="alert alert-success" style="text-align: center;">
+                                    {!! session('success') !!}
+                                </div>
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    @endif
                     <section class="content">
                         <div class="container-fluid">
                             <div class="row">
