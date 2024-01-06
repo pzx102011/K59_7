@@ -56,7 +56,7 @@ class GradesController extends Controller
         return \view(
             'dashboard.grades.index',
             [
-                'grades' => $grades->forPage($request->get('page', 1), 25),
+                'grades' => $grades->paginate(25),
                 'loggedUser' => $user,
                 'canManageGrades' => $canManageGrades,
                 'canAddGrades' => $canAddGrades,
