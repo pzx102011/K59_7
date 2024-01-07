@@ -85,6 +85,8 @@ Rodzice:
 - Zdzisława Brzęczyszczykiewicz,		zdzislawa.brzeczyszczykiewicz@poznan.merito.pl
 
 __________________________________________________________________________________
+
+Każdy użytkownik ma takie samo hasło: testowehaselko
 __________________________________________________________________________________
 
 
